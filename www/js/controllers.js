@@ -2,55 +2,36 @@ angular.module('starter.controllers', [])
 
 .controller('AppCtrl', function($scope, $ionicModal, $timeout) {
 
-  // With the new view caching in Ionic, Controllers are only called
-  // when they are recreated or on app start, instead of every page change.
-  // To listen for when this page is active (for example, to refresh data),
-  // listen for the $ionicView.enter event:
-  //$scope.$on('$ionicView.enter', function(e) {
-  //});
 
-  // Form data for the login modal
-  $scope.loginData = {};
+})
+.controller('HomeCtrl', function($scope, $ionicLoading, $state, geoLocation, $stateParams, $http){
+  $scope.position = geoLocation.getGeolocation();
+  $scope.search = function(city){
+    $state.go('app.browse', {city: city})
+  }
 
-  // Create the login modal that we will use later
-  $ionicModal.fromTemplateUrl('templates/login.html', {
-    scope: $scope
-  }).then(function(modal) {
-    $scope.modal = modal;
-  });
-
-  // Triggered in the login modal to close it
-  $scope.closeLogin = function() {
-    $scope.modal.hide();
-  };
-
-  // Open the login modal
-  $scope.login = function() {
-    $scope.modal.show();
-  };
-
-  // Perform the login action when the user submits the login form
-  $scope.doLogin = function() {
-    console.log('Doing login', $scope.loginData);
-
-    // Simulate a login delay. Remove this and replace with your login
-    // code if using a login system
-    $timeout(function() {
-      $scope.closeLogin();
-    }, 1000);
-  };
+  url = "http://api.openweathermap.org/data/2.5/forecast?lat="+$scope.position.lat+"&lon="+$scope.position.lng+"&APPID=7a0a40b5437273be8ca241dc947981a2";
+  $ionicLoading.show({
+      template: 'Chargement...'
+   });
+  $http.get(url).success(function(response){
+      $ionicLoading.hide();
+      $scope.weather = response;
+  })
+  $scope.Math = Math
 })
 
-.controller('PlaylistsCtrl', function($scope) {
-  $scope.playlists = [
-    { title: 'Reggae', id: 1 },
-    { title: 'Chill', id: 2 },
-    { title: 'Dubstep', id: 3 },
-    { title: 'Indie', id: 4 },
-    { title: 'Rap', id: 5 },
-    { title: 'Cowbell', id: 6 }
-  ];
-})
 
-.controller('PlaylistCtrl', function($scope, $stateParams) {
-});
+.controller('WeatherCtrl', function($ionicLoading, $scope, $stateParams, $http){
+
+  url = "http://api.openweathermap.org/data/2.5/forecast/daily?q=" + $stateParams.city + "&mode=json&units=metric&cnt=10&APPID=7a0a40b5437273be8ca241dc947981a2";
+  $ionicLoading.show({
+      template: 'Chargement...'
+   });
+  $http.get(url).success(function(response){
+      $ionicLoading.hide();
+      $scope.weather = response;
+  })
+  $scope.Math = Math
+
+})
