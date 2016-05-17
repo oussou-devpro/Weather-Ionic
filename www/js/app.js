@@ -7,31 +7,19 @@
 angular.module('starter', ['ionic', 'starter.controllers','ngCordova'])
 
 .run(function($ionicPlatform, $cordovaGeolocation, geoLocation, $rootScope, defaultLocalisation, $ionicPopup) {
+
   $ionicPlatform.ready(function() {
     // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
     // for form inputs)
-    if (window.cordova && window.cordova.plugins.Keyboard) {
-      cordova.plugins.Keyboard.hideKeyboardAccessoryBar(true);
-      cordova.plugins.Keyboard.disableScroll(true);
-
-    }
-    if (window.StatusBar) {
-      // org.apache.cordova.statusbar required
-      StatusBar.styleDefault();
-    }
-
     // ========================= GEOLOCATION ============================
-
     $cordovaGeolocation.getCurrentPosition().then(function (position) {
             geoLocation.setGeolocation(position.coords.latitude, position.coords.longitude);
-            console.log(position.coords.latitude);
         }, function (err) {
              // you need to enhance that point
             $ionicPopup.alert({
                 title: 'Ooops...',
                 template: err.message
             });
-
             geoLocation.setGeolocation(defaultLocalisation.latitude, defaultLocalisation.longitude)
         });
 
@@ -53,6 +41,16 @@ angular.module('starter', ['ionic', 'starter.controllers','ngCordova'])
 
     // ========================= END GEOLOCATION ============================
 
+    if (window.cordova && window.cordova.plugins.Keyboard) {
+      cordova.plugins.Keyboard.hideKeyboardAccessoryBar(true);
+      cordova.plugins.Keyboard.disableScroll(true);
+
+    }
+    if (window.StatusBar) {
+      // org.apache.cordova.statusbar required
+      StatusBar.styleDefault();
+
+    }
   });
 })
 
@@ -85,7 +83,6 @@ angular.module('starter', ['ionic', 'starter.controllers','ngCordova'])
                 longitude: longitude
 
             }
-            console.log(position);
             $localStorage.setObject('geoLocation', position)
         },
         getGeolocation: function () {
