@@ -8,7 +8,7 @@ angular.module('starter.controllers', [])
   $scope.search = function(city){
     $state.go('app.browse', {city: city})
   }
-  url = "http://api.openweathermap.org/data/2.5/forecast?lat="+$scope.position.lat+"&lon="+$scope.position.lat+"&mode=json&units=metric&cnt=10&appid=7a0a40b5437273be8ca241dc947981a2";
+  url = "http://api.openweathermap.org/data/2.5/forecast/daily?lat="+$scope.position.lat+"&lon="+$scope.position.lat+"&mode=json&units=metric&cnt=7&appid=7a0a40b5437273be8ca241dc947981a2";
   $ionicLoading.show({
       template: 'Chargement...'
    });
@@ -34,7 +34,7 @@ angular.module('starter.controllers', [])
     var jour = date.getDay();
     return $scope.tabDay[jour];
   }
-  url = "http://api.openweathermap.org/data/2.5/forecast/daily?q=" + $stateParams.city + "&mode=json&units=metric&cnt=10&APPID=7a0a40b5437273be8ca241dc947981a2";
+  url = "http://api.openweathermap.org/data/2.5/forecast/daily?q=" + $stateParams.city + "&mode=json&units=metric&cnt=7&APPID=7a0a40b5437273be8ca241dc947981a2";
   $ionicLoading.show({
       template: 'Chargement...'
    });
