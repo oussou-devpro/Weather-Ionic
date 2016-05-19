@@ -116,6 +116,16 @@ angular.module('starter', ['ionic', 'starter.controllers','ngCordova'])
     }
   })
 
+  .state('app.add', {
+    url: '/add',
+    views: {
+      'menuContent': {
+        templateUrl: 'templates/add.html',
+        controller: 'AddCtrl'
+      }
+    }
+  })
+
   .state('app.browse', {
       url: '/browse/:city',
       views: {
