@@ -3,8 +3,10 @@ angular.module('starter.controllers', [])
 .controller('AppCtrl', function($scope, $ionicModal, $timeout) {
 
 })
-.controller('AddCtrl', function($scope, $ionicModal, $timeout) {
-
+.controller('AddCtrl', function($scope, $state) {
+  $scope.search = function(city){
+    $state.go('app.browse', {city: city})
+  }
 })
 .controller('HomeCtrl', function($scope, $ionicLoading, $state, geoLocation, $stateParams, $http){
   $scope.position = geoLocation.getGeolocation();

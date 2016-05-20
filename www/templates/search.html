@@ -1,15 +1,5 @@
-<ion-view view-title="home">
+<ion-view view-title="{{weather.city.name}} / {{weather.city.country}} ">
     <ion-content>
-    <form class="list">
-          <label class="item item-input">
-            <input type="text" placeholder="Ville" ng-model="city">
-          </label>
-          <div class="padding">
-              <button class="button button-block button-positive" ng-click="search(city)">Envoyer</button>
-          </div>
-          {{weather.city.name}}
-          {{weather.city.country}}
-        </form>
         <div class="row" ng-class="{row_active: $index==0}" ng-repeat="t in weather.list" ng-click="expand($event)">
             <div class="temperature">{{Math.round(t.temp.day)}}°C</div>
             <div class="date">
