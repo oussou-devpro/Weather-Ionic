@@ -1,14 +1,21 @@
 angular.module('starter.controllers', [])
 
-.controller('AppCtrl', function($scope, $ionicModal, $timeout) {
+.controller('AppCtrl', function($scope, $ionicModal, $timeout, $rootScope) {
 
-})
-.controller('AddCtrl', function($scope, $state) {
-  $scope.search = function(city){
-    $state.go('app.browse', {city: city})
+  $scope.click = function (){
+    $scope.citys = $rootScope.cityTab;
+    console.log($rootScope.cityTab);
   }
 })
-.controller('HomeCtrl', function($scope, $ionicLoading, $state, geoLocation, $stateParams, $http){
+.controller('AddCtrl', function($scope, $state, $rootScope) {
+  $scope.search = function(city){
+    $state.go('app.browse', {city: city})
+    $rootScope.cityTab.push(city);
+    console.log($rootScope.cityTab);
+  }
+})
+.controller('HomeCtrl', function($scope, $ionicLoading, $state, $rootScope,geoLocation, $stateParams, $http){
+  $rootScope.cityTab = [];
   $scope.position = geoLocation.getGeolocation();
   $scope.search = function(city){
     $state.go('app.browse', {city: city})
@@ -20,6 +27,7 @@ angular.module('starter.controllers', [])
   $http.get(url).success(function(response){
       $ionicLoading.hide();
       $scope.weather = response;
+      $rootScope.cityTab.push($scope.weather.city.name);
   })
   $scope.Math = Math
 

@@ -5,7 +5,7 @@
       </ion-nav-back-button>
 
       <ion-nav-buttons side="left">
-        <button class="button button-icon button-clear ion-navicon" menu-toggle="left">
+        <button class="button button-icon button-clear ion-navicon" ng-click="click()" menu-toggle="left">
         </button>
       </ion-nav-buttons>
       <ion-nav-buttons side="right">
@@ -24,12 +24,12 @@
     </ion-header-bar>
     <ion-content>
       <ion-list>
-        <ion-item menu-close href="#/app/search">
-          Search
-        </ion-item>
-        <ion-item menu-close href="#/app/browse">
-          Browse
-        </ion-item>
+        <div ng-repeat="city in citys">
+          <ion-item menu-close href="#/app/browse/:{{city}}">
+            {{city}}
+          </ion-item>
+        </div>
+
       </ion-list>
     </ion-content>
   </ion-side-menu>
